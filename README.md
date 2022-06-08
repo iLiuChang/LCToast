@@ -26,7 +26,7 @@ Add toast to UIView.
 [self.view lc_showToast:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
 ```
 
-<center><img src="https://github.com/iLiuChang/LCToast/raw/main/Images/toast_image.png" alt="image toast" style="zoom:50%;"></center> 
+<img src="https://github.com/iLiuChang/LCToast/raw/main/Images/toast_image.png" alt="image toast" style="zoom:50%;" />
 
 ### show loading
 
@@ -34,9 +34,7 @@ Add toast to UIView.
 [self.view lc_showLoading];
 ```
 
-
-<center><img src="https://github.com/iLiuChang/LCToast/raw/main/Images/loading.png" alt="image toast" style="zoom:50%;"></center>
-
+<img src="https://github.com/iLiuChang/LCToast/raw/main/Images/loading.png" alt="loading" style="zoom:50%;" />
 
 ## Installation
 
