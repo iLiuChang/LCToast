@@ -4,9 +4,24 @@
 
 Add toast to UIView.
 
+
+
+> Refactored on the basis of [Toast](https://github.com/scalessec/Toast).
+
 ## Requirements
 
 - **iOS 8.0+**
+
+## Features
+
+|                                               |  LCToast   |    Toast    |
+| :-------------------------------------------: | :--------: | :---------: |
+|                image position                 | top center | left center |
+|                   subtitle                    |     ❌      |      ✅      |
+| automatic calculation of hidden time interval |     ✅      |      ❌      |
+|       dismiss activity when toast shown       |     ✅      |      ❌      |
+|          click to hide the activity           |     ✅      |      ❌      |
+|              modify toast point               |     ❌      |      ✅      |
 
 ## Usage
 
@@ -16,7 +31,7 @@ Add toast to UIView.
 [self.view lc_showToast:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。"];
 ```
 
-|                             Top                              |                            Center                            |                            Bottom                            |
+|                      LCToastPositionTop                      |                    LCToastPositionCenter                     |                    LCToastPositionBottom                     |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | ![top](https://github.com/iLiuChang/LCToast/raw/main/Images/top.png) | ![center](https://github.com/iLiuChang/LCToast/raw/main/Images/center.png) | ![bottom](https://github.com/iLiuChang/LCToast/raw/main/Images/bottom.png) |
 

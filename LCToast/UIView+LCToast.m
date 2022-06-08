@@ -30,7 +30,6 @@ static const NSString * LCToastQueueKey             = @"LCToastQueueKey";
             style = [LCToastManager sharedManager].sharedStyle;
         }
         
-        // dynamically build a toast view with any combination of message, title, & image
         UILabel *messageLabel = nil;
         UIImageView *imageView = nil;
         
@@ -171,7 +170,6 @@ static const NSString * LCToastQueueKey             = @"LCToastQueueKey";
 }
 
 - (void)lc_dismissToast:(UIView *)toast {
-    // sanity
     if (!toast || ![[self activeToasts] containsObject:toast]) return;
     [self removeToastWrapper:toast];
 }
