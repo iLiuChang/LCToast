@@ -12,17 +12,18 @@ Add toast to UIView.
 
 The following is a comparison of features with [Toast](https://github.com/scalessec/Toast) and [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD).
 
-|                                          |  LCToast   |    Toast    | SVProgressHUD |
-| :--------------------------------------: | :--------: | :---------: | :-----------: |
-|              image position              | top center | left center |  top center   |
-|                superview                 | any views  |  any views  |   UIWindow    |
-| automatic calculation text time interval |     ✅      |      ❌      |       ✅       |
-|     dismiss loading when toast shown     |     ✅      |      ❌      |       ✅       |
-|     click the loading  to dismiss it     |     ✅      |      ❌      |       ❌       |
-|              modify center               |     ❌      |      ✅      |       ✅       |
-|                 progress                 |     ✅      |      ❌      |       ✅       |
-|                 subtitle                 |     ❌      |      ✅      |       ❌       |
-|                  queue                   |     ✅      |      ✅      |       ❌       |
+|                                             |  LCToast   |    Toast    | SVProgressHUD |
+| :-----------------------------------------: | :--------: | :---------: | :-----------: |
+|               image position                | top center | left center |  top center   |
+|                  superview                  | any views  |  any views  |   UIWindow    |
+|  automatic calculation text time interval   |     ✅      |      ❌      |       ✅       |
+|      dismiss loading when toast shown       |     ✅      |      ❌      |       ✅       |
+|      click the loading  to dismiss it       |     ✅      |      ❌      |       ❌       |
+|                modify center                |     ❌      |      ✅      |       ✅       |
+|                  progress                   |     ✅      |      ❌      |       ✅       |
+|                  subtitle                   |     ❌      |      ✅      |       ❌       |
+|                    queue                    |     ✅      |      ✅      |       ❌       |
+| support for disabling superview interaction |     ✅      |      ❌      |       ✅       |
 
 ## Usage
 
