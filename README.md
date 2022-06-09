@@ -4,24 +4,25 @@
 
 Add toast to UIView.
 
-
-
-> Refactored on the basis of [Toast](https://github.com/scalessec/Toast).
-
 ## Requirements
 
 - **iOS 8.0+**
 
 ## Features
 
-|                                               |  LCToast   |    Toast    |
-| :-------------------------------------------: | :--------: | :---------: |
-|                image position                 | top center | left center |
-|                   subtitle                    |     ❌      |      ✅      |
-| automatic calculation of hidden time interval |     ✅      |      ❌      |
-|       dismiss activity when toast shown       |     ✅      |      ❌      |
-|          click to hide the activity           |     ✅      |      ❌      |
-|              modify toast point               |     ❌      |      ✅      |
+The following is a comparison of features with [Toast](https://github.com/scalessec/Toast) and [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD).
+
+|                                          |  LCToast   |    Toast    | SVProgressHUD |
+| :--------------------------------------: | :--------: | :---------: | :-----------: |
+|              image position              | top center | left center |  top center   |
+|                superview                 | any views  |  any views  |   UIWindow    |
+| automatic calculation text time interval |     ✅      |      ❌      |       ✅       |
+|     dismiss loading when toast shown     |     ✅      |      ❌      |       ✅       |
+|     click the loading  to dismiss it     |     ✅      |      ❌      |       ❌       |
+|              modify center               |     ❌      |      ✅      |       ✅       |
+|                 progress                 |     ✅      |      ❌      |       ✅       |
+|                 subtitle                 |     ❌      |      ✅      |       ❌       |
+|                  queue                   |     ✅      |      ✅      |       ❌       |
 
 ## Usage
 
@@ -50,6 +51,14 @@ Add toast to UIView.
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/loading.png" width="300" />
+
+### show progress
+
+```objective-c
+[self.view lc_showProgress:0.3];
+```
+
+<img src="https://github.com/iLiuChang/LCToast/raw/main/Images/progress.png" width="300" />
 
 ## Installation
 

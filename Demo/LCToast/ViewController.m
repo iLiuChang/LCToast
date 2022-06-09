@@ -8,6 +8,8 @@
 #import "ViewController.h"
 #import "UIView+LCToast.h"
 @interface ViewController ()
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger count;
 
 @end
 
@@ -47,8 +49,15 @@
     [image addTarget:self action:@selector(didImage) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:image];
 
+    UIButton *progress = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame), 150, 100, 30)];
+    [progress setTitle:@"progress" forState:(UIControlStateNormal)];
+    [progress setTitleColor:UIColor.blueColor forState:(UIControlStateNormal)];
+    [progress addTarget:self action:@selector(didProgress) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:progress];
+    
     LCToastManager.sharedManager.sharedStyle.imageSize = CGSizeMake(28, 28);
 
+//    LCToastManager.sharedManager.toastQueueEnabled = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -70,5 +79,23 @@
 
 - (void)didImage {
     [self.view lc_showToast:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
+}
+
+- (void)didProgress {
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(startProgress:) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+
+    self.count = 0;
+    [self startProgress:self.timer];
+}
+
+- (void)startProgress:(NSTimer *)timer {
+    self.count+=1;
+    if (self.count == 10) {
+        [self.timer invalidate];
+        [self.view lc_dismissProgress];
+    }
+    [self.view lc_showProgress:self.count/10.0];
 }
 @end

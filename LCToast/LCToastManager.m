@@ -70,7 +70,6 @@
     if (self) {
         _sharedStyle = [[LCToastStyle alloc] initWithDefaultStyle];
         _tapToDismissEnabled = YES;
-        _queueEnabled = NO;
         _minimumDismissTimeInterval = 3.0;
         _maximumDismissTimeInterval = CGFLOAT_MAX;
         _position = LCToastPositionCenter;

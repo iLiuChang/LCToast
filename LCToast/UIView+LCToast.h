@@ -15,17 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)lc_showToast:(NSString *)message;
 - (void)lc_showToast:(NSString *)message position:(LCToastPosition)position;
 - (void)lc_showToast:(NSString *)message image:(nullable UIImage *)image position:(LCToastPosition)position;
-- (void)lc_showToast:(NSString *)message image:(nullable UIImage *)image position:(LCToastPosition)position style:(nullable LCToastStyle *)style;
 
 - (void)lc_dismissToast;
-- (void)lc_dismissToast:(UIView *)toast;
 - (void)lc_dismissAllToasts; 
 
-- (void)lc_dismissAllActivities;
+- (void)lc_dismissAllPopups;
 
 @end
 
-@interface UIView (LCLoading)
+@interface UIView (LCActivityLoading)
 
 - (void)lc_showLoading;
 - (void)lc_showDisabledLoading; // `self` will not be able to respond to interaction events
@@ -34,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface UIView (LCActivityProgress)
 
+- (void)lc_showProgress:(CGFloat)progress;
+- (void)lc_showProgress:(CGFloat)progress position:(LCToastPosition)position;
+- (void)lc_dismissProgress;
+
+@end
 
 NS_ASSUME_NONNULL_END

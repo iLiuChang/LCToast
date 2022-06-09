@@ -39,13 +39,15 @@ typedef NS_ENUM(NSUInteger, LCToastPosition) {
 @property (strong, nonatomic, nullable) LCToastShadow *shadow; // default is nil
 @property (assign, nonatomic) CGSize activitySize; // default is `CGSizeMake(100.0, 100.0)`
 @property (assign, nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle; // default is UIActivityIndicatorViewStyleWhiteLarge
+@property(nonatomic, strong, nullable) UIColor* progressColor; // default is nil
+@property(nonatomic, strong, nullable) UIColor* progressTrackColor; // default is nil
 @end
 
 
 @interface LCToastManager : NSObject
 @property (strong, nonatomic) LCToastStyle *sharedStyle;
 @property (assign, nonatomic) BOOL tapToDismissEnabled;                  // default is YES
-@property (assign, nonatomic) BOOL queueEnabled;                         // default is NO
+@property (assign, nonatomic) BOOL toastQueueEnabled;                    // default is NO
 @property (assign, nonatomic) LCToastPosition position;                  // default is LCToastPositionCenter
 @property (assign, nonatomic) NSTimeInterval minimumDismissTimeInterval; // default is 3.0 seconds
 @property (assign, nonatomic) NSTimeInterval maximumDismissTimeInterval; // default is CGFLOAT_MAX
