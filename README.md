@@ -10,7 +10,7 @@ Add toast to UIView.
 
 ## Features
 
-The following is a comparison of features with [Toast](https://github.com/scalessec/Toast) and [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD).
+The LCToast is a comparison of features with [Toast](https://github.com/scalessec/Toast) and [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD).
 
 |                                             |  LCToast   |    Toast    | SVProgressHUD |
 | :-----------------------------------------: | :--------: | :---------: | :-----------: |

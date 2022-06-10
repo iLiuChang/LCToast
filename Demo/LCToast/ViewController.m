@@ -55,6 +55,12 @@
     [progress addTarget:self action:@selector(didProgress) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:progress];
     
+    UIButton *dismissall = [[UIButton alloc] initWithFrame:CGRectMake(20, 200, 100, 30)];
+    [dismissall setTitle:@"dismissall" forState:(UIControlStateNormal)];
+    [dismissall setTitleColor:UIColor.blueColor forState:(UIControlStateNormal)];
+    [dismissall addTarget:self action:@selector(didAll) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:dismissall];
+    
     LCToastManager.sharedManager.sharedStyle.imageSize = CGSizeMake(28, 28);
 
 //    LCToastManager.sharedManager.toastQueueEnabled = YES;
@@ -90,6 +96,9 @@
     [self startProgress:self.timer];
 }
 
+- (void)didAll {
+    [self.view lc_dismissAllPopups];
+}
 - (void)startProgress:(NSTimer *)timer {
     self.count+=1;
     if (self.count == 10) {
