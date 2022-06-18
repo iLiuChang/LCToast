@@ -32,15 +32,16 @@ typedef NS_ENUM(NSUInteger, LCToastPosition) {
 @property (assign, nonatomic) CGFloat maxHeightPercentage; // the value from 0.0 to 1.0, default is 0.8 (80% of the superview's height)
 @property (assign, nonatomic) CGFloat horizontalSpacing; // the spacing from the horizontal edge of the toast view to the content/toast-superview, default is 10.0
 @property (assign, nonatomic) CGFloat verticalSpacing; // the spacing from the vertical edge of the toast view to the content/toast-superview, default is 10.0
-@property (assign, nonatomic) CGFloat imageToMessageSpacing; // default is 8.0
+@property (assign, nonatomic) CGFloat messageSpacing; // the spacing from image/loading/progress/ to the message, default is 8.0
 @property (assign, nonatomic) CGFloat cornerRadius; // default is 10.0
 @property (assign, nonatomic) CGSize imageSize; // default is `CGSizeMake(80.0, 80.0)`
 @property (assign, nonatomic) NSTimeInterval fadeDuration; // default is 0.2
 @property (strong, nonatomic, nullable) LCToastShadow *shadow; // default is nil
-@property (assign, nonatomic) CGSize activitySize; // default is `CGSizeMake(100.0, 100.0)`
-@property (assign, nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle; // default is UIActivityIndicatorViewStyleWhiteLarge
-@property(nonatomic, strong, nullable) UIColor* progressColor; // default is nil
-@property(nonatomic, strong, nullable) UIColor* progressTrackColor; // default is nil
+@property (assign, nonatomic) CGSize activitySize; // default is `CGSizeMake(100.0, 100.0)`. If message has a value then this parameter is invalid, its value will be the size of `UIActivityIndicatorView`.
+@property (assign, nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle; // default is `UIActivityIndicatorViewStyleWhiteLarge`
+@property (strong, nonatomic, nullable) UIColor* progressColor; // default is nil
+@property (strong, nonatomic, nullable) UIColor* progressTrackColor; // default is nil
+
 @end
 
 

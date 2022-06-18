@@ -68,23 +68,23 @@
 }
 
 - (void)didTop {
-    [self.view lc_showToast:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。" position:(LCToastPositionTop)];
+    [self.view lc_showToastWithMessage:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。" position:(LCToastPositionTop)];
 }
 
 - (void)didCenter {
-    [self.view lc_showToast:@"泉眼无声惜细流，树阴照水爱晴柔。小荷才露尖尖角，早有蜻蜓立上头。" position:(LCToastPositionCenter)];
+    [self.view lc_showToastWithMessage:@"泉眼无声惜细流，树阴照水爱晴柔。小荷才露尖尖角，早有蜻蜓立上头。" position:(LCToastPositionCenter)];
 }
 
 - (void)didBottom {
-    [self.view lc_showToast:@"日照香炉生紫烟，遥看瀑布挂前川。飞流直下三千尺，疑是银河落九天。" position:(LCToastPositionBottom)];
+    [self.view lc_showToastWithMessage:@"日照香炉生紫烟，遥看瀑布挂前川。飞流直下三千尺，疑是银河落九天。" position:(LCToastPositionBottom)];
 }
 
 - (void)didLoading {
-    [self.view lc_showLoading];
+    [self.view lc_showLoadingWithMessage:@"加载中..."];
 }
 
 - (void)didImage {
-    [self.view lc_showToast:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
+    [self.view lc_showToastWithMessage:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
 }
 
 - (void)didProgress {
@@ -105,6 +105,6 @@
         [self.timer invalidate];
         [self.view lc_dismissProgress];
     }
-    [self.view lc_showProgress:self.count/10.0];
+    [self.view lc_showProgress:self.count/10.0 message:@"下载中..."];
 }
 @end

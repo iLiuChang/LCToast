@@ -24,7 +24,7 @@
         self.maxHeightPercentage = 0.8;
         self.horizontalSpacing = 10.0;
         self.verticalSpacing = 10.0;
-        self.imageToMessageSpacing = 8.0;
+        self.messageSpacing = 8.0;
         self.cornerRadius = 10.0;
         self.messageFont = [UIFont systemFontOfSize:16.0];
         self.messageAlignment = NSTextAlignmentCenter;

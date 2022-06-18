@@ -13,21 +13,20 @@
 @property (copy, nonatomic) NSString *message;
 @property (assign, nonatomic) LCToastPosition position;
 @property (strong, nonatomic) NSTimer *timer;
+@property (weak, nonatomic) UIView *imageView;
 
 @end
 @implementation LCToastWrapper
-- (instancetype)initWithMessage:(NSString *)message image:(UIImage *)image viewSize:(CGSize)viewSize
+- (instancetype)initWithMessage:(NSString *)message imageView:(UIView *)imageView viewSize:(CGSize)viewSize
 {
     self = [super init];
     if (self) {
-        if (message == nil && image == nil) return self;
+        if (message == nil && imageView == nil) return self;
 
         _message = message;
         LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
 
         UILabel *messageLabel = nil;
-        UIImageView *imageView = nil;
-        
         self.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin);
         self.layer.cornerRadius = style.cornerRadius;
         
@@ -39,12 +38,6 @@
         }
         
         self.backgroundColor = style.backgroundColor;
-        
-        if(image != nil) {
-            imageView = [[UIImageView alloc] initWithImage:image];
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
-            imageView.frame = CGRectMake(0, style.verticalSpacing, style.imageSize.width, style.imageSize.height);
-        }
         
         if (message != nil) {
             messageLabel = [[UILabel alloc] init];
@@ -68,7 +61,7 @@
         CGFloat wrapperWidth = MAX((imageView.frame.size.width + (style.horizontalSpacing * 2.0)), (messageLabel.frame.size.width + style.horizontalSpacing * 2.0));
         CGFloat wrapperHeight = style.verticalSpacing * 2.0 + imageView.frame.size.height + messageLabel.frame.size.height;
         if (imageView && messageLabel) {
-            wrapperHeight += style.imageToMessageSpacing;
+            wrapperHeight += style.messageSpacing;
         }
         self.frame = CGRectMake(0.0, 0.0, wrapperWidth, wrapperHeight);
         
@@ -77,6 +70,7 @@
             center.x = wrapperWidth/2.0;
             imageView.center = center;
             [self addSubview:imageView];
+            self.imageView = imageView;
         }
         
         if(messageLabel != nil) {
@@ -85,7 +79,7 @@
             messageLabel.center = center;
             if (imageView) {
                 CGRect frame = messageLabel.frame;
-                frame.origin.y = CGRectGetMaxY(imageView.frame) + style.imageToMessageSpacing;
+                frame.origin.y = CGRectGetMaxY(imageView.frame) + style.messageSpacing;
                 messageLabel.frame = frame;
             }
             [self addSubview:messageLabel];
@@ -128,21 +122,29 @@
 
 @implementation UIView (LCToast)
 
-- (void)lc_showToast:(NSString *)message {
-    [self lc_showToast:message image:nil position:LCToastManager.sharedManager.position];
+- (void)lc_showToastWithMessage:(NSString *)message {
+    [self lc_showToastWithMessage:message image:nil position:LCToastManager.sharedManager.position];
 }
 
-- (void)lc_showToast:(NSString *)message position:(LCToastPosition)position {
-    [self lc_showToast:message image:nil position:position];
+- (void)lc_showToastWithMessage:(NSString *)message position:(LCToastPosition)position {
+    [self lc_showToastWithMessage:message image:nil position:position];
 }
 
-- (void)lc_showToast:(NSString *)message image:(UIImage *)image position:(LCToastPosition)position {
+- (void)lc_showToastWithMessage:(NSString *)message image:(UIImage *)image position:(LCToastPosition)position {
     if (LCToastManager.sharedManager.dismissLoadingWhenToastShown) {
         [self lc_dismissLoading];
     }
 
-    if (message == nil) return;
-    LCToastWrapper *toast = [[LCToastWrapper alloc] initWithMessage:message image:image viewSize:self.bounds.size];
+    if (!message && !image) return;
+
+    UIImageView *imageView;
+    if(image) {
+        LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
+        imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.frame = CGRectMake(0, style.verticalSpacing, style.imageSize.width, style.imageSize.height);
+    }
+    LCToastWrapper *toast = [[LCToastWrapper alloc] initWithMessage:message imageView:imageView viewSize:self.bounds.size];
     toast.position = position;
     if ([LCToastManager sharedManager].toastQueueEnabled) {
         if ([self.activeToasts count] > 0) {
@@ -254,39 +256,28 @@ static const NSString * LCToastActiveKey = @"LCToastActiveKey";
 
 @end
 
-#pragma mark - Activity
-@interface UIView (LCActivityHelper)
-@end
-@implementation UIView (LCActivityHelper)
-- (void)configActivityView:(UIView *)activityView{
-    LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
-    activityView.backgroundColor = style.backgroundColor;
-    activityView.alpha = 0.0;
-    activityView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin);
-    activityView.layer.cornerRadius = style.cornerRadius;
-    if (style.shadow) {
-        activityView.layer.shadowColor = style.shadow.shadowColor.CGColor;
-        activityView.layer.shadowOpacity = style.shadow.shadowOpacity;
-        activityView.layer.shadowRadius = style.shadow.shadowRadius;
-        activityView.layer.shadowOffset = style.shadow.shadowOffset;
-    }
-}
-@end
-
 #pragma mark - Activity-Loading
 static const NSString * LCActivityLoadingViewKey      = @"LCToastActivityViewKey";
 static const NSString * LCActivityLoadingDisabledViewKey      = @"LCToastActivityDisabledViewKey";
 @implementation UIView (LCActivityLoading)
 
 - (void)lc_showLoading {
-    [self lc_showLoadingWithPosition:LCToastManager.sharedManager.position disabled:NO];
+    [self lc_showLoadingWithMessage:nil position:LCToastManager.sharedManager.position disabled:NO];
+}
+
+- (void)lc_showLoadingWithMessage:(NSString *)message {
+    [self lc_showLoadingWithMessage:message position:LCToastManager.sharedManager.position disabled:NO];
 }
 
 - (void)lc_showDisabledLoading {
-    [self lc_showLoadingWithPosition:LCToastManager.sharedManager.position disabled:YES];
+    [self lc_showLoadingWithMessage:nil position:LCToastManager.sharedManager.position disabled:YES];
 }
 
-- (void)lc_showLoadingWithPosition:(LCToastPosition)position disabled:(BOOL)disabled {
+- (void)lc_showDisabledLoadingWithMessage:(NSString *)message {
+    [self lc_showLoadingWithMessage:message position:LCToastManager.sharedManager.position disabled:YES];
+}
+
+- (void)lc_showLoadingWithMessage:(NSString *)message position:(LCToastPosition)position disabled:(BOOL)disabled {
     UIView *existingActivityView = (UIView *)objc_getAssociatedObject(self, &LCActivityLoadingViewKey);
     if (existingActivityView != nil) {
         return;
@@ -303,13 +294,16 @@ static const NSString * LCActivityLoadingDisabledViewKey      = @"LCToastActivit
     }
     
     LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
-    UIView *activityView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, style.activitySize.width, style.activitySize.height)];
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style.activityIndicatorViewStyle];
-    activityIndicatorView.center = CGPointMake(activityView.bounds.size.width / 2, activityView.bounds.size.height / 2);
-    [activityView addSubview:activityIndicatorView];
+    CGRect frame = activityIndicatorView.frame;
+    frame.origin.y = style.verticalSpacing;
+    if (!message) {
+        frame.size = style.activitySize;
+    }
+    activityIndicatorView.frame = frame;
     [activityIndicatorView startAnimating];
+    LCToastWrapper *activityView = [[LCToastWrapper alloc] initWithMessage:message imageView:activityIndicatorView viewSize:self.bounds.size];
     activityView.center = [self centerPointForPosition:position withToast:activityView];
-    [self configActivityView:activityView];
     [self addSubview:activityView];
     objc_setAssociatedObject (self, &LCActivityLoadingViewKey, activityView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
@@ -320,6 +314,7 @@ static const NSString * LCActivityLoadingDisabledViewKey      = @"LCToastActivit
         activityView.exclusiveTouch = YES;
     }
     
+    activityView.alpha = 0.0;
     [UIView animateWithDuration:style.fadeDuration
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
@@ -354,57 +349,40 @@ static const NSString * LCActivityLoadingDisabledViewKey      = @"LCToastActivit
 
 #pragma mark - Activity-Progress
 
-@interface LCActivityProgress : UIView
-@property (nonatomic, weak) UIProgressView *progressView;
-@end
-@implementation LCActivityProgress
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.userInteractionEnabled = NO;
-        LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
-        UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(style.horizontalSpacing, 0, self.bounds.size.width-style.horizontalSpacing*2, frame.size.height)];
-        progressView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-        progressView.userInteractionEnabled = NO;
-        if (style.progressColor) {
-            progressView.progressTintColor = style.progressColor;
-        }
-        if (style.progressTrackColor) {
-            progressView.trackTintColor = style.progressTrackColor;
-        }
-        [self addSubview:progressView];
-        _progressView = progressView;
-    }
-    return self;
-}
-@end
-
 static const NSString * LCActivityProgressViewKey = @"LCActivityProgressViewKey";
 @implementation UIView (LCActivityProgress)
 
 - (void)lc_showProgress:(CGFloat)progress {
-    [self lc_showProgress:progress position:LCToastManager.sharedManager.position];
+    [self lc_showProgress:progress message:nil position:LCToastManager.sharedManager.position];
 }
 
-- (void)lc_showDisabledProgress:(CGFloat)progress {
-    [self lc_showProgress:progress position:LCToastManager.sharedManager.position];
+- (void)lc_showProgress:(CGFloat)progress message:(NSString *)message {
+    [self lc_showProgress:progress message:message position:LCToastManager.sharedManager.position];
 }
 
-- (void)lc_showProgress:(CGFloat)progress position:(LCToastPosition)position {
+- (void)lc_showProgress:(CGFloat)progress message:(NSString *)message position:(LCToastPosition)position {
     UIView *existingActivityView = (UIView *)objc_getAssociatedObject(self, &LCActivityProgressViewKey);
     if (existingActivityView) {
-        [((LCActivityProgress *)existingActivityView).progressView setProgress:progress animated:YES];
+        UIProgressView *progressView = (UIProgressView *)((LCToastWrapper *)existingActivityView).imageView;
+        [progressView setProgress:progress animated:YES];
         return;
     }
     
     LCToastStyle *style = [LCToastManager sharedManager].sharedStyle;
-    LCActivityProgress *activityView = [[LCActivityProgress alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width * style.maxWidthPercentage - style.horizontalSpacing*2, style.verticalSpacing*2+5)];
-    [self configActivityView:activityView];
+    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, style.verticalSpacing, self.frame.size.width * style.maxWidthPercentage - style.horizontalSpacing*2, 5)];
+    progressView.userInteractionEnabled = NO;
+    if (style.progressColor) {
+        progressView.progressTintColor = style.progressColor;
+    }
+    if (style.progressTrackColor) {
+        progressView.trackTintColor = style.progressTrackColor;
+    }
+    LCToastWrapper *activityView = [[LCToastWrapper alloc] initWithMessage:message imageView:progressView viewSize:self.bounds.size];
     activityView.center = [self centerPointForPosition:position withToast:activityView];
     [self addSubview:activityView];
     objc_setAssociatedObject (self, &LCActivityProgressViewKey, activityView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [activityView.progressView setProgress:progress animated:YES];
+    [progressView setProgress:progress animated:YES];
+    activityView.alpha = 0.0;
     [UIView animateWithDuration:style.fadeDuration
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
