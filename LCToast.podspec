@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LCToast"
-  s.version      = "1.1.0"
+  s.version      = "1.2.0"
   s.summary      = "Add toast to UIView."
   s.homepage     = "https://github.com/iLiuChang/LCToast"
   s.license      = "MIT"

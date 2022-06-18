@@ -30,7 +30,7 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show toast
 
 ```objective-c
-[self.view lc_showToast:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。"];
+[self.view lc_showToastWithMessage:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。"];
 ```
 
 |                      LCToastPositionTop                      |                    LCToastPositionCenter                     |                    LCToastPositionBottom                     |
@@ -40,7 +40,7 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show image toast
 
 ```objective-c
-[self.view lc_showToast:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
+[self.view lc_showToastWithMessage:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/toast_image.png" width="300" />
@@ -48,7 +48,7 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show loading
 
 ```objective-c
-[self.view lc_showLoading];
+[self.view lc_showLoadingWithMessage:@"加载中..."];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/loading.png" width="300" />
@@ -56,7 +56,7 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show progress
 
 ```objective-c
-[self.view lc_showProgress:0.3];
+[self.view lc_showProgress:0.7 message:@"下载中..."];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/progress.png" width="300" />
