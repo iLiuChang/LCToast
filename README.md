@@ -18,8 +18,8 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 |                  superview                  | any views  |  any views  |   UIWindow    |
 |  automatic calculation text time interval   |     ✅      |      ❌      |       ✅       |
 |      dismiss loading when toast shown       |     ✅      |      ❌      |       ✅       |
-|      click the loading  to dismiss it       |     ✅      |      ❌      |       ❌       |
-|                modify center                |     ❌      |      ✅      |       ✅       |
+|    loading/progress support  the message    |     ✅      |      ❌      |       ✅       |
+|                modify offset                |     ❌      |      ✅      |       ✅       |
 |                  progress                   |     ✅      |      ❌      |       ✅       |
 |                  subtitle                   |     ❌      |      ✅      |       ❌       |
 |                    queue                    |     ✅      |      ✅      |       ❌       |

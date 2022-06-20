@@ -6,8 +6,11 @@
 //  Copyright © 2022 LiuChang. All rights reserved.
 //
 
+#if __has_include(<LCToast/LCToastManager.h>)
+#import <LCToast/LCToastManager.h>
+#else
 #import "LCToastManager.h"
-
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (LCToast)
