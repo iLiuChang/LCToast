@@ -17,8 +17,8 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 |               image position                | top center | left center |  top center   |
 |                  superview                  | any views  |  any views  |   UIWindow    |
 |  automatic calculation text time interval   |     ✅      |      ❌      |       ✅       |
-|      dismiss loading when toast shown       |     ✅      |      ❌      |       ✅       |
-|    loading/progress support  the message    |     ✅      |      ❌      |       ✅       |
+|      dismiss activity when toast shown      |     ✅      |      ❌      |       ✅       |
+|   activity/progress support  the message    |     ✅      |      ❌      |       ✅       |
 |                modify offset                |     ❌      |      ✅      |       ✅       |
 |                  progress                   |     ✅      |      ❌      |       ✅       |
 |                  subtitle                   |     ❌      |      ✅      |       ❌       |
@@ -30,7 +30,7 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show toast
 
 ```objective-c
-[self.view lc_showToastWithMessage:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。"];
+[self.view lc_showToast:@"床前明月光，疑是地上霜。举头望明月，低头思故乡。"];
 ```
 
 |                      LCToastPositionTop                      |                    LCToastPositionCenter                     |                    LCToastPositionBottom                     |
@@ -40,23 +40,23 @@ The LCToast is a comparison of features with [Toast](https://github.com/scalesse
 ### show image toast
 
 ```objective-c
-[self.view lc_showToastWithMessage:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
+[self.view lc_showToast:@"春种一粒粟，秋收万颗子。四海无闲田，农夫犹饿死。锄禾日当午，汗滴禾下土。谁知盘中餐，粒粒皆辛苦。" image:[UIImage imageNamed:@"warning"] position:(LCToastPositionCenter)];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/toast_image.png" width="300" />
 
-### show loading
+### show activity toast
 
 ```objective-c
-[self.view lc_showLoadingWithMessage:@"加载中..."];
+[self.view lc_showActivityToast:@"加载中..."];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/loading.png" width="300" />
 
-### show progress
+### show progress toast
 
 ```objective-c
-[self.view lc_showProgress:0.7 message:@"下载中..."];
+[self.view lc_showProgressToast:0.7 message:@"下载中..."];
 ```
 
 <img src="https://github.com/iLiuChang/LCToast/raw/main/Images/progress.png" width="300" />

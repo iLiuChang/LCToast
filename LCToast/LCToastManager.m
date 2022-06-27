@@ -29,7 +29,7 @@
         self.messageFont = [UIFont systemFontOfSize:16.0];
         self.messageAlignment = NSTextAlignmentCenter;
         self.messageNumberOfLines = 0;
-        self.imageSize = CGSizeMake(80.0, 80.0);
+        self.imageSize = CGSizeMake(30.0, 30.0);
         self.activitySize = CGSizeMake(100.0, 100.0);
         self.fadeDuration = 0.2;
 #pragma clang diagnostic push
@@ -73,7 +73,7 @@
         _minimumDismissTimeInterval = 3.0;
         _maximumDismissTimeInterval = CGFLOAT_MAX;
         _position = LCToastPositionCenter;
-        _dismissLoadingWhenToastShown = YES;
+        _dismissActivityWhenToastShown = YES;
     }
     return self;
 }
